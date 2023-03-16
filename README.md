@@ -1,0 +1,45 @@
+# use-custom-event
+
+A simple utility to create custom event emitter, listener (subscriber) and React hook for listening. Make the event payload strictly typed using [zod](https://github.com/colinhacks/zod)
+
+## Installation
+
+```shell
+npm install use-custom-event
+```
+
+## Usage
+
+```tsx
+import { z } from 'zod';
+import { createEventEmitter } from 'use-custom-event';
+
+const { emit, useCustomEvent } = createEventEmitter(
+  'my-event',
+  z.object({
+    name: z.string(),
+  })
+);
+
+function App() {
+  useCustomEvent(
+    useCallback((data) => {
+      console.log(data.name);
+    }, [])
+  );
+
+  return (
+    <button
+      onClick={() => {
+        emit({
+          name: 'drenther',
+        });
+      }}
+    >
+      Trigger Event
+    </button>
+  );
+}
+```
+
+Use it for whatever you like and drop us a star!
