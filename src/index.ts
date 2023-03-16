@@ -11,7 +11,7 @@ function getElement() {
 }
 
 export function createEventEmitter<T extends z.ZodTypeAny>(
-  eventName: 'string',
+  eventName: string,
   schema: T
 ) {
   const element = getElement();

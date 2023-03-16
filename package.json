@@ -1,6 +1,6 @@
 {
   "name": "use-custom-event",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "type": "module",
   "sideEffects": false,
   "files": [
@@ -51,6 +51,14 @@
       "import": "{ createEventEmitter }",
       "limit": "1 kB"
     }
+  ],
+  "keywords": [
+    "react",
+    "hooks",
+    "custom-evet",
+    "event",
+    "event-emitter",
+    "zod"
   ],
   "license": "MIT"
 }

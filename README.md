@@ -1,5 +1,7 @@
 # use-custom-event
 
+![Bundle Size](https://badgen.net/bundlephobia/minzip/use-custom-event) ![npm version](https://badgen.net/npm/v/use-custom-event) ![types](https://badgen.net/npm/types/use-custom-event) ![license](https://badgen.net/github/license/drenther/use-custom-event)
+
 A simple utility to create custom event emitter, listener (subscriber) and React hook for listening. Make the event payload strictly typed using [zod](https://github.com/colinhacks/zod)
 
 ## Installation
