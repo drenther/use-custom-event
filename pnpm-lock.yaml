@@ -1,17 +1,21 @@
 lockfileVersion: 5.4
 
 specifiers:
-  '@size-limit/preset-small-lib': ^8.2.4
-  '@types/node': ^18.15.3
-  '@types/react': ^18.0.28
-  '@vitejs/plugin-react': ^3.1.0
-  react: ^18.2.0
-  react-dom: ^18.2.0
-  size-limit: ^8.2.4
-  typescript: ^4.9.4
-  vite: ^4.2.0
-  vite-plugin-dts: ^2.1.0
-  zod: ^3.21.4
+  '@size-limit/preset-small-lib': 8.2.4
+  '@types/node': 18.15.3
+  '@types/react': 18.0.28
+  '@vitejs/plugin-react': 3.1.0
+  emittery: 1.0.1
+  react: 18.2.0
+  react-dom: 18.2.0
+  size-limit: 8.2.4
+  typescript: 5.0.2
+  vite: 4.2.0
+  vite-plugin-dts: 2.1.0
+  zod: 3.21.4
+
+dependencies:
+  emittery: 1.0.1
 
 devDependencies:
   '@size-limit/preset-small-lib': 8.2.4_size-limit@8.2.4
@@ -21,7 +25,7 @@ devDependencies:
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
   size-limit: 8.2.4
-  typescript: 4.9.5
+  typescript: 5.0.2
   vite: 4.2.0_@types+node@18.15.3
   vite-plugin-dts: 2.1.0_55j2zwyrixw4q2c2olnaswzcha
   zod: 3.21.4
@@ -846,6 +850,11 @@ packages:
     resolution: {integrity: sha512-c1Vbv5tuUlBFp0mb3mCIjw+REEsgthRgNE8BlbEDKmvzb8rxjcVki6OkQP83vLN34s0XCxpSkq7AZNep1a6xhw==}
     dev: true
 
+  /emittery/1.0.1:
+    resolution: {integrity: sha512-2ID6FdrMD9KDLldGesP6317G78K7km/kMcwItRtVFva7I/cSEOIaLpewaUb+YLXVwdAp3Ctfxh/V5zIl1sj7dQ==}
+    engines: {node: '>=14.16'}
+    dev: false
+
   /esbuild/0.17.11:
     resolution: {integrity: sha512-pAMImyokbWDtnA/ufPxjQg0fYo2DDuzAlqwnDvbXqHLphe+m80eF++perYKVm8LeTuj2zUuFXC+xgSVxyoHUdg==}
     engines: {node: '>=12'}
@@ -1383,9 +1392,9 @@ packages:
     hasBin: true
     dev: true
 
-  /typescript/4.9.5:
-    resolution: {integrity: sha512-1FXk9E2Hm+QzZQ7z+McJiHL4NW1F2EzMu9Nq9i3zAaGqibafqYwCVU6WyWAuyQRRzOlxou8xZSyXLEN8oKj24g==}
-    engines: {node: '>=4.2.0'}
+  /typescript/5.0.2:
+    resolution: {integrity: sha512-wVORMBGO/FAs/++blGNeAVdbNKtIh1rbBL2EyQ1+J9lClJ93KiiKe8PmFIVdXhHcyv44SL9oglmfeSsndo0jRw==}
+    engines: {node: '>=12.20'}
     hasBin: true
     dev: true
 

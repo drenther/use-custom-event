@@ -1,20 +1,11 @@
 import { useEffect } from 'react';
 import { z } from 'zod';
 
-let targetElement: undefined | HTMLDivElement;
-function getElement() {
-  if (targetElement) {
-    return targetElement;
-  }
-
-  return (targetElement = document.createElement('div'));
-}
-
 export function createEventEmitter<T extends z.ZodTypeAny>(
   eventName: string,
   schema: T
 ) {
-  const element = getElement();
+  const element = document.createElement('div');
 
   type EventDetail = z.infer<T>;
   type EventCallback = (data: EventDetail) => void | Promise<void>;
@@ -32,7 +23,7 @@ export function createEventEmitter<T extends z.ZodTypeAny>(
         callback((event as CustomEvent).detail);
       });
     },
-    useCustomEvent: (callback: EventCallback) => {
+    useEventListener: (callback: EventCallback) => {
       useEffect(() => {
         const handleEvent = (event: Event) => {
           callback((event as CustomEvent).detail);
