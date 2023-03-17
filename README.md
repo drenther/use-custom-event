@@ -16,7 +16,7 @@ npm install use-custom-event
 import { z } from 'zod';
 import { createEventEmitter } from 'use-custom-event';
 
-const { emit, useCustomEvent } = createEventEmitter(
+const { emit, useEventListener } = createEventEmitter(
   'my-event',
   z.object({
     name: z.string(),
@@ -24,7 +24,7 @@ const { emit, useCustomEvent } = createEventEmitter(
 );
 
 function App() {
-  useCustomEvent(
+  useEventListener(
     useCallback((data) => {
       console.log(data.name);
     }, [])
