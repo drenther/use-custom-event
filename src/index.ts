@@ -11,27 +11,27 @@ export function createEventEmitter<T extends z.ZodTypeAny>(
   type EventCallback = (data: EventDetail) => void | Promise<void>;
 
   return {
-    emit: (detail: EventDetail) => {
+    emit(detail: EventDetail) {
       const event = new CustomEvent(eventName, {
         detail: schema.parse(detail),
         bubbles: true,
       });
       element.dispatchEvent(event);
     },
-    subscribe: (callback: EventCallback) => {
-      element.addEventListener(eventName, (event) => {
+    subscribe(callback: EventCallback) {
+      const handleEvent = (event: Event) => {
         callback((event as CustomEvent).detail);
-      });
+      };
+
+      element.addEventListener(eventName, handleEvent, false);
+
+      return () => {
+        element.removeEventListener(eventName, handleEvent, false);
+      };
     },
-    useEventListener: (callback: EventCallback) => {
+    useEventListener(callback: EventCallback) {
       useEffect(() => {
-        const handleEvent = (event: Event) => {
-          callback((event as CustomEvent).detail);
-        };
-        element.addEventListener(eventName, handleEvent, false);
-        return () => {
-          element.removeEventListener(eventName, handleEvent, false);
-        };
+        return this.subscribe(callback);
       }, [callback]);
     },
   } as const;

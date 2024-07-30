@@ -4,20 +4,32 @@
   "type": "module",
   "sideEffects": false,
   "files": [
-    "dist"
+    "dist/**"
   ],
-  "module": "./dist/index.es.js",
+  "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "import": "./dist/index.es.js",
-      "types": "./dist/index.d.ts"
+      "types": "./dist/index.d.ts",
+      "import": {
+        "default": "./dist/index.js",
+        "types": "./dist/index.d.ts"
+      },
+      "module": "./dist/index.js",
+      "default": "./dist/index.js"
+    },
+    "./broadcast": {
+      "types": "./dist/broadcast.d.ts",
+      "import": {
+        "default": "./dist/broadcast.js",
+        "types": "./dist/broadcast.d.ts"
+      },
+      "module": "./dist/broadcast.js",
+      "default": "./dist/broadcast.js"
     }
   },
   "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
-    "preview": "vite preview",
+    "build": "tsup",
     "size": "size-limit",
     "prepublishOnly": "pnpm run build && pnpm run size"
   },
@@ -29,9 +41,8 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "size-limit": "8.2.4",
+    "tsup": "8.2.3",
     "typescript": "5.0.2",
-    "vite": "4.2.0",
-    "vite-plugin-dts": "2.1.0",
     "zod": "3.21.4"
   },
   "peerDependencies": {
@@ -48,18 +59,24 @@
   },
   "size-limit": [
     {
-      "path": "dist/index.es.js",
+      "path": "dist/index.js",
       "import": "{ createEventEmitter }",
+      "limit": "1 kB"
+    },
+    {
+      "path": "dist/broadcast.js",
+      "import": "{ createBroadcastChannelEventEmitter }",
       "limit": "1 kB"
     }
   ],
   "keywords": [
     "react",
     "hooks",
-    "custom-evet",
+    "custom-event",
     "event",
     "event-emitter",
-    "zod"
+    "zod",
+    "broadcast-channel"
   ],
   "license": "MIT"
 }
