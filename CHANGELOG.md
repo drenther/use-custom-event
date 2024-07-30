@@ -1,3 +1,7 @@
+# 2.0.1
+
+- Fix wrong `this` issue
+
 # 2.0.0
 
 - support for Broadcast Channel API

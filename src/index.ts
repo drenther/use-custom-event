@@ -10,6 +10,18 @@ export function createEventEmitter<T extends z.ZodTypeAny>(
   type EventDetail = z.infer<T>;
   type EventCallback = (data: EventDetail) => void | Promise<void>;
 
+  function subscribe(callback: EventCallback) {
+    const handleEvent = (event: Event) => {
+      callback((event as CustomEvent).detail);
+    };
+
+    element.addEventListener(eventName, handleEvent, false);
+
+    return () => {
+      element.removeEventListener(eventName, handleEvent, false);
+    };
+  }
+
   return {
     emit(detail: EventDetail) {
       const event = new CustomEvent(eventName, {
@@ -18,20 +30,10 @@ export function createEventEmitter<T extends z.ZodTypeAny>(
       });
       element.dispatchEvent(event);
     },
-    subscribe(callback: EventCallback) {
-      const handleEvent = (event: Event) => {
-        callback((event as CustomEvent).detail);
-      };
-
-      element.addEventListener(eventName, handleEvent, false);
-
-      return () => {
-        element.removeEventListener(eventName, handleEvent, false);
-      };
-    },
+    subscribe,
     useEventListener(callback: EventCallback) {
       useEffect(() => {
-        return this.subscribe(callback);
+        return subscribe(callback);
       }, [callback]);
     },
   } as const;
