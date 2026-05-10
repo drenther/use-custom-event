@@ -1,7 +1,7 @@
 {
   "name": "use-custom-event",
   "version": "2.0.1",
-  "description": "Typed custom event emitters for React with Standard Schema validation",
+  "description": "Typed custom event emitters with Standard Schema validation — framework-agnostic core with optional React bindings",
   "keywords": [
     "arktype",
     "broadcast-channel",
@@ -38,10 +38,20 @@
       "import": "./dist/index.js",
       "require": "./dist/index.cjs"
     },
+    "./react": {
+      "types": "./dist/react.d.ts",
+      "import": "./dist/react.js",
+      "require": "./dist/react.cjs"
+    },
     "./broadcast": {
       "types": "./dist/broadcast.d.ts",
       "import": "./dist/broadcast.js",
       "require": "./dist/broadcast.cjs"
+    },
+    "./broadcast/react": {
+      "types": "./dist/broadcast/react.d.ts",
+      "import": "./dist/broadcast/react.js",
+      "require": "./dist/broadcast/react.cjs"
     },
     "./package.json": {
       "default": "./package.json"
@@ -85,6 +95,11 @@
   },
   "peerDependencies": {
     "react": "^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": true
+    }
   },
   "engines": {
     "node": ">=24.15.0"

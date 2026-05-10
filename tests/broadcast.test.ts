@@ -1,5 +1,4 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
-import { renderHook } from "@testing-library/react";
 import type { StandardSchemaV1 } from "@standard-schema/spec";
 import { createBroadcastChannelEventEmitter } from "../src/broadcast";
 
@@ -161,30 +160,5 @@ describe("createBroadcastChannelEventEmitter", () => {
     expect(() => {
       emitter.emit("test");
     }).toThrow("Schema validation must be synchronous");
-  });
-
-  it("should work with useEventListener hook", () => {
-    const schema = createMockSchema<string>();
-    const emitter = createBroadcastChannelEventEmitter(channel, schema);
-    const callback = vi.fn();
-
-    renderHook(() => emitter.useEventListener(callback));
-    emitter.emit("hook-data");
-
-    expect(callback).toHaveBeenCalledWith("hook-data");
-  });
-
-  it("should clean up useEventListener on unmount", () => {
-    const schema = createMockSchema<string>();
-    const emitter = createBroadcastChannelEventEmitter(channel, schema);
-    const callback = vi.fn();
-
-    const { unmount } = renderHook(() => emitter.useEventListener(callback));
-    emitter.emit("before");
-    unmount();
-    emitter.emit("after");
-
-    expect(callback).toHaveBeenCalledTimes(1);
-    expect(callback).toHaveBeenCalledWith("before");
   });
 });

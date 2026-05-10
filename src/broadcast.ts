@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import type { StandardSchemaV1 } from "@standard-schema/spec";
 
 export type { StandardSchemaV1 } from "@standard-schema/spec";
@@ -39,10 +38,5 @@ export function createBroadcastChannelEventEmitter<T extends StandardSchemaV1>(
       channel.postMessage(validate(data));
     },
     subscribe,
-    useEventListener(callback: EventCallback) {
-      useEffect(() => {
-        return subscribe(callback);
-      }, [callback]);
-    },
   } as const;
 }
