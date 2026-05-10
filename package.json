@@ -1,6 +1,6 @@
 {
   "name": "use-custom-event",
-  "version": "2.0.1",
+  "version": "3.0.0",
   "description": "Typed custom event emitters with Standard Schema validation — framework-agnostic core with optional React bindings",
   "keywords": [
     "arktype",
