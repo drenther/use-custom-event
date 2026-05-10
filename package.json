@@ -1,82 +1,93 @@
 {
   "name": "use-custom-event",
   "version": "2.0.1",
-  "type": "module",
-  "sideEffects": false,
-  "files": [
-    "dist/**"
+  "description": "Typed custom event emitters for React with Standard Schema validation",
+  "keywords": [
+    "arktype",
+    "broadcast-channel",
+    "custom-event",
+    "effect-schema",
+    "event",
+    "event-emitter",
+    "hooks",
+    "react",
+    "standard-schema",
+    "valibot",
+    "zod"
   ],
-  "module": "./dist/index.js",
-  "types": "./dist/index.d.ts",
-  "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "import": {
-        "default": "./dist/index.js",
-        "types": "./dist/index.d.ts"
-      },
-      "module": "./dist/index.js",
-      "default": "./dist/index.js"
-    },
-    "./broadcast": {
-      "types": "./dist/broadcast.d.ts",
-      "import": {
-        "default": "./dist/broadcast.js",
-        "types": "./dist/broadcast.d.ts"
-      },
-      "module": "./dist/broadcast.js",
-      "default": "./dist/broadcast.js"
-    }
-  },
-  "scripts": {
-    "build": "tsup",
-    "size": "size-limit",
-    "prepublishOnly": "pnpm run build && pnpm run size"
-  },
-  "devDependencies": {
-    "@size-limit/preset-small-lib": "8.2.4",
-    "@types/node": "18.15.3",
-    "@types/react": "18.0.28",
-    "@vitejs/plugin-react": "3.1.0",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
-    "size-limit": "8.2.4",
-    "tsup": "8.2.3",
-    "typescript": "5.0.2",
-    "zod": "3.21.4"
-  },
-  "peerDependencies": {
-    "react": "^16.8.0  || ^17.0.0 || ^18.0.0",
-    "zod": "^2.0.0 || ^3.0.0"
+  "homepage": "https://github.com/drenther/use-custom-event#readme",
+  "license": "MIT",
+  "author": {
+    "name": "Soumyajit Pathak"
   },
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/drenther/use-custom-event.git"
   },
-  "homepage": "https://github.com/drenther/use-custom-event#readme",
-  "author": {
-    "name": "Soumyajit Pathak"
-  },
-  "size-limit": [
-    {
-      "path": "dist/index.js",
-      "import": "{ createEventEmitter }",
-      "limit": "1 kB"
+  "files": [
+    "dist"
+  ],
+  "type": "module",
+  "sideEffects": false,
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
     },
-    {
-      "path": "dist/broadcast.js",
-      "import": "{ createBroadcastChannelEventEmitter }",
-      "limit": "1 kB"
+    "./broadcast": {
+      "types": "./dist/broadcast.d.ts",
+      "import": "./dist/broadcast.js",
+      "require": "./dist/broadcast.cjs"
+    },
+    "./package.json": {
+      "default": "./package.json"
     }
-  ],
-  "keywords": [
-    "react",
-    "hooks",
-    "custom-event",
-    "event",
-    "event-emitter",
-    "zod",
-    "broadcast-channel"
-  ],
-  "license": "MIT"
+  },
+  "scripts": {
+    "build": "tsdown",
+    "dev": "tsdown --watch",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "typecheck": "tsc --noEmit",
+    "lint": "oxlint .",
+    "lint:fix": "oxlint --fix .",
+    "format": "oxfmt .",
+    "format:check": "oxfmt --check .",
+    "changeset": "changeset",
+    "version": "changeset version",
+    "release": "pnpm run build && changeset publish",
+    "prepare": "husky"
+  },
+  "devDependencies": {
+    "@changesets/cli": "2.31.0",
+    "@commitlint/cli": "20.5.3",
+    "@commitlint/config-conventional": "20.5.3",
+    "@standard-schema/spec": "1.1.0",
+    "@testing-library/jest-dom": "6.9.1",
+    "@testing-library/react": "16.3.2",
+    "@types/react": "19.2.14",
+    "@types/react-dom": "19.2.3",
+    "@vitest/coverage-v8": "4.1.5",
+    "happy-dom": "20.9.0",
+    "husky": "9.1.7",
+    "oxfmt": "0.47.0",
+    "oxlint": "1.62.0",
+    "react": "19.2.5",
+    "react-dom": "19.2.5",
+    "tsdown": "0.21.10",
+    "typescript": "6.0.3",
+    "vitest": "4.1.5"
+  },
+  "peerDependencies": {
+    "react": "^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0"
+  },
+  "engines": {
+    "node": ">=24.15.0"
+  },
+  "packageManager": "pnpm@11.0.9+sha512.34ce82e6780233cf9cad8685029a8f81d2e06196c5a9bad98879f7424940c6817c4e4524fb7d38b8553ceed48b9758b8ebaf1abd3600c232c4c8cf7366086f38"
 }
