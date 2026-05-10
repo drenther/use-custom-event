@@ -24,9 +24,12 @@ A typed custom event emitter for React using the Standard Schema interface for r
 
 ## Architecture
 
-- `src/index.ts` — custom event emitter using DOM CustomEvent API
-- `src/broadcast.ts` — cross-tab event emitter using BroadcastChannel API
-- Both accept any Standard Schema compliant validator (zod 3.24+, valibot, arktype, etc.)
+- `src/index.ts` — core custom event emitter using DOM CustomEvent API (no React dependency)
+- `src/react.ts` — React bindings wrapping core event emitter with `useEventListener` hook
+- `src/broadcast.ts` — core cross-tab event emitter using BroadcastChannel API (no React dependency)
+- `src/broadcast-react.ts` — React bindings wrapping broadcast event emitter with `useEventListener` hook
+- All modules accept any Standard Schema compliant validator (zod 3.24+, valibot, arktype, etc.)
+- React is an optional peer dependency — only needed when importing from `/react` or `/broadcast/react` paths
 
 ## Supply Chain Config — Do Not Modify Without Approval
 

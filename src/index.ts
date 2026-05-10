@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import type { StandardSchemaV1 } from "@standard-schema/spec";
 
 export type { StandardSchemaV1 } from "@standard-schema/spec";
@@ -42,10 +41,5 @@ export function createEventEmitter<T extends StandardSchemaV1>(eventName: string
       element.dispatchEvent(event);
     },
     subscribe,
-    useEventListener(callback: EventCallback) {
-      useEffect(() => {
-        return subscribe(callback);
-      }, [callback]);
-    },
   } as const;
 }

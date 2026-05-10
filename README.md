@@ -2,7 +2,7 @@
 
 ![Bundle Size](https://img.shields.io/bundlephobia/minzip/use-custom-event) ![npm version](https://badgen.net/npm/v/use-custom-event) ![types](https://badgen.net/npm/types/use-custom-event)
 
-Typed custom event emitters for React with runtime validation via [Standard Schema](https://github.com/standard-schema/standard-schema). Works with any compatible validation library — no adapter needed.
+Typed custom event emitters with runtime validation via [Standard Schema](https://github.com/standard-schema/standard-schema). Framework-agnostic core with optional React bindings. Works with any compatible validation library — no adapter needed.
 
 ## Compatible Validation Libraries
 
@@ -25,21 +25,41 @@ Any library that implements the [Standard Schema](https://github.com/standard-sc
 pnpm add use-custom-event
 ```
 
+## Entry Points
+
+| Import Path                        | Description                          | Requires React |
+| ---------------------------------- | ------------------------------------ | -------------- |
+| `use-custom-event`                 | Core event emitter (DOM CustomEvent) | No             |
+| `use-custom-event/react`           | Core + `useEventListener` hook       | Yes            |
+| `use-custom-event/broadcast`       | BroadcastChannel event emitter       | No             |
+| `use-custom-event/broadcast/react` | Broadcast + `useEventListener` hook  | Yes            |
+
 ## Usage with Zod
 
-```tsx
+### Core (no React dependency)
+
+```ts
 import { z } from "zod";
 import { createEventEmitter } from "use-custom-event";
 
-const { emit, subscribe, useEventListener } = createEventEmitter(
-  "my-event",
-  z.object({ name: z.string() }),
-);
+const { emit, subscribe } = createEventEmitter("my-event", z.object({ name: z.string() }));
 
 const unsubscribe = subscribe((data) => {
   console.log(data.name); // strictly typed
 });
 unsubscribe();
+```
+
+### With React
+
+```tsx
+import { z } from "zod";
+import { createEventEmitter } from "use-custom-event/react";
+
+const { emit, subscribe, useEventListener } = createEventEmitter(
+  "my-event",
+  z.object({ name: z.string() }),
+);
 
 function App() {
   useEventListener(
@@ -54,122 +74,55 @@ function App() {
 
 ## Usage with Valibot
 
-```tsx
+```ts
 import * as v from "valibot";
 import { createEventEmitter } from "use-custom-event";
 
-const { emit, subscribe, useEventListener } = createEventEmitter(
-  "my-event",
-  v.object({ name: v.string() }),
-);
-
-const unsubscribe = subscribe((data) => {
-  console.log(data.name);
-});
-unsubscribe();
-
-function App() {
-  useEventListener(
-    useCallback((data) => {
-      console.log(data.name);
-    }, []),
-  );
-
-  return <button onClick={() => emit({ name: "hello" })}>Trigger</button>;
-}
+const { emit, subscribe } = createEventEmitter("my-event", v.object({ name: v.string() }));
 ```
 
 ## Usage with ArkType
 
-```tsx
+```ts
 import { type } from "arktype";
 import { createEventEmitter } from "use-custom-event";
 
-const { emit, subscribe, useEventListener } = createEventEmitter(
-  "my-event",
-  type({ name: "string" }),
-);
-
-const unsubscribe = subscribe((data) => {
-  console.log(data.name);
-});
-unsubscribe();
-
-function App() {
-  useEventListener(
-    useCallback((data) => {
-      console.log(data.name);
-    }, []),
-  );
-
-  return <button onClick={() => emit({ name: "hello" })}>Trigger</button>;
-}
+const { emit, subscribe } = createEventEmitter("my-event", type({ name: "string" }));
 ```
 
 ## Usage with Effect Schema
 
-```tsx
+```ts
 import { Schema } from "effect";
 import { createEventEmitter } from "use-custom-event";
 
-const { emit, subscribe, useEventListener } = createEventEmitter(
-  "my-event",
-  Schema.Struct({ name: Schema.String }),
-);
-
-const unsubscribe = subscribe((data) => {
-  console.log(data.name);
-});
-unsubscribe();
-
-function App() {
-  useEventListener(
-    useCallback((data) => {
-      console.log(data.name);
-    }, []),
-  );
-
-  return <button onClick={() => emit({ name: "hello" })}>Trigger</button>;
-}
+const { emit, subscribe } = createEventEmitter("my-event", Schema.Struct({ name: Schema.String }));
 ```
 
 ## Usage with Yup
 
-```tsx
+```ts
 import * as yup from "yup";
 import { createEventEmitter } from "use-custom-event";
 
-const { emit, subscribe, useEventListener } = createEventEmitter(
+const { emit, subscribe } = createEventEmitter(
   "my-event",
   yup.object({ name: yup.string().required() }),
 );
-
-const unsubscribe = subscribe((data) => {
-  console.log(data.name);
-});
-unsubscribe();
-
-function App() {
-  useEventListener(
-    useCallback((data) => {
-      console.log(data.name);
-    }, []),
-  );
-
-  return <button onClick={() => emit({ name: "hello" })}>Trigger</button>;
-}
 ```
 
 ## Broadcast Channel
 
 [Broadcast Channel](https://developer.mozilla.org/en-US/docs/Web/API/Broadcast_Channel_API) enables communication between tabs/windows of the same origin. Works with any compatible validation library.
 
-```tsx
+### Core (no React dependency)
+
+```ts
 import { z } from "zod";
 import { createBroadcastChannelEventEmitter } from "use-custom-event/broadcast";
 
 const channel = new BroadcastChannel("my-channel");
-const { emit, subscribe, useEventListener } = createBroadcastChannelEventEmitter(
+const { emit, subscribe } = createBroadcastChannelEventEmitter(
   channel,
   z.object({ name: z.string() }),
 );
@@ -178,6 +131,19 @@ const unsubscribe = subscribe((data) => {
   console.log(data.name);
 });
 unsubscribe();
+```
+
+### With React
+
+```tsx
+import { z } from "zod";
+import { createBroadcastChannelEventEmitter } from "use-custom-event/broadcast/react";
+
+const channel = new BroadcastChannel("my-channel");
+const { emit, useEventListener } = createBroadcastChannelEventEmitter(
+  channel,
+  z.object({ name: z.string() }),
+);
 
 function App() {
   useEventListener(
@@ -189,6 +155,22 @@ function App() {
   return <button onClick={() => emit({ name: "hello" })}>Trigger</button>;
 }
 ```
+
+## Migrating from v3
+
+v4 decouples React bindings from the core modules. The root entry point (`use-custom-event`) and broadcast entry point (`use-custom-event/broadcast`) no longer depend on React or export `useEventListener`. Import from the `/react` subpath instead:
+
+```diff
+- import { createEventEmitter } from "use-custom-event";
++ import { createEventEmitter } from "use-custom-event/react";
+```
+
+```diff
+- import { createBroadcastChannelEventEmitter } from "use-custom-event/broadcast";
++ import { createBroadcastChannelEventEmitter } from "use-custom-event/broadcast/react";
+```
+
+If you only use `emit` and `subscribe` (no hooks), your imports stay the same — no changes needed.
 
 ## Migrating from v2
 
